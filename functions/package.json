@@ -10,7 +10,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest"
+    "test": "jest",
+    "test:debug": "node --inspect-brk=5858 node_modules/.bin/jest --runInBand"
   },
   "engines": {
     "node": "8"

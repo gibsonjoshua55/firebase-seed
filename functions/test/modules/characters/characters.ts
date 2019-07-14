@@ -1,24 +1,17 @@
 import { DocumentReference } from '@google-cloud/firestore';
 import { suite, test } from '@testdeck/jest';
-import { ContainerInstance } from 'typedi';
-import { timeout } from '../../common';
-import { Firebase } from '../../services';
+import { FirebaseTestSuiteBase, timeout } from '../../common';
 
 type UserType = {
     characters: DocumentReference[]
 } | undefined;
 
 @suite
-export class CharactersSuite {
-    firebase: Firebase;
-    constructor(container: ContainerInstance) {
-        this.firebase = container.get(Firebase);
-    }
+export class CharactersSuite extends FirebaseTestSuiteBase {
+
 
     @test
     async charactersOnCreate() {
-        // wait for service initialization
-        await this.firebase.initialized;
         const userDoc = this.firebase.defaultUser;
 
         // create character
