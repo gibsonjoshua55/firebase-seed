@@ -1,16 +1,12 @@
 import { DocumentReference } from '@google-cloud/firestore';
-import { suite, test } from '@testdeck/mocha';
-import { expect } from 'chai';
+import { suite, test } from '@testdeck/jest';
 import { ContainerInstance } from 'typedi';
+import { timeout } from '../../common';
 import { Firebase } from '../../services';
 
 type UserType = {
     characters: DocumentReference[]
-} | undefined
-
-const timeout = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+} | undefined;
 
 @suite
 export class CharactersSuite {
@@ -36,7 +32,7 @@ export class CharactersSuite {
 
         // expect user to have the newly created character
         const userData: UserType = (await userDoc.get()).data() as UserType;
-        expect(userData).to.not.be.undefined;
+        expect(userData).toBeDefined();
         if (userData) {
             let characterExists = false;
             userData.characters.forEach((character) => {
@@ -44,7 +40,7 @@ export class CharactersSuite {
                     characterExists = true;
                 }
             });
-            expect(characterExists).to.be.true;
+            expect(characterExists).toEqual(true);
         }
     }
 }

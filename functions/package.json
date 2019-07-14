@@ -10,8 +10,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "ts-mocha -p test/tsconfig.json",
-    "test:debug": "ts-mocha -p test/tsconfig.json --inspect-brk=5858"
+    "test": "jest"
   },
   "engines": {
     "node": "8"
@@ -28,15 +27,13 @@
   },
   "devDependencies": {
     "@testdeck/di-typedi": "0.0.6",
-    "@testdeck/mocha": "0.0.6",
-    "@types/chai": "^4.1.7",
+    "@testdeck/jest": "0.0.6",
     "@types/dotenv": "^6.1.1",
-    "@types/mocha": "^5.2.7",
+    "@types/jest": "^24.0.15",
     "@types/node": "^12.6.2",
-    "chai": "^4.2.0",
-    "mocha": "^6.1.4",
+    "jest": "^24.8.0",
     "reflect-metadata": "^0.1.13",
-    "ts-mocha": "^6.0.0",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.12.0",
     "typedi": "^0.8.0",
