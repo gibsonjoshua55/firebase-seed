@@ -2,6 +2,9 @@
 **/*.js
 **/*.js.map
 
+# include config
+!**/*config.js
+
 # Typescript v1 declaration files
 typings/
 
