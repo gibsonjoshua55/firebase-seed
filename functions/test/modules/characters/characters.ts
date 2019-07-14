@@ -1,28 +1,17 @@
 import { DocumentReference } from '@google-cloud/firestore';
-import { suite, test } from '@testdeck/mocha';
-import { expect } from 'chai';
-import { ContainerInstance } from 'typedi';
-import { Firebase } from '../../services';
+import { suite, test } from '@testdeck/jest';
+import { FirebaseTestSuiteBase, timeout } from '../../common';
 
 type UserType = {
     characters: DocumentReference[]
-} | undefined
-
-const timeout = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+} | undefined;
 
 @suite
-export class CharactersSuite {
-    firebase: Firebase;
-    constructor(container: ContainerInstance) {
-        this.firebase = container.get(Firebase);
-    }
+export class CharactersSuite extends FirebaseTestSuiteBase {
+
 
     @test
     async charactersOnCreate() {
-        // wait for service initialization
-        await this.firebase.initialized;
         const userDoc = this.firebase.defaultUser;
 
         // create character
@@ -36,7 +25,7 @@ export class CharactersSuite {
 
         // expect user to have the newly created character
         const userData: UserType = (await userDoc.get()).data() as UserType;
-        expect(userData).to.not.be.undefined;
+        expect(userData).toBeDefined();
         if (userData) {
             let characterExists = false;
             userData.characters.forEach((character) => {
@@ -44,7 +33,7 @@ export class CharactersSuite {
                     characterExists = true;
                 }
             });
-            expect(characterExists).to.be.true;
+            expect(characterExists).toEqual(true);
         }
     }
 }
